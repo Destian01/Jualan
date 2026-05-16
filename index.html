@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplikasi Jualan</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  
+<script>
+
+const loginUser =
+  localStorage.getItem("loginUser");
+
+if(!loginUser){
+  window.location.href = "login.html";
+}
+
+</script>
+
+
+<div class="app-container">
+
+  <!-- ========================= -->
+  <!-- TAB PRODUK -->
+  <!-- ========================= -->
+
+  <div id="produkPage" class="tab-page">
+
+    <div class="produk-header">
+
+  <input
+    type="text"
+    id="searchProduk"
+    placeholder="🔍 Cari produk..."
+    onkeyup="tampilkanProduk()"
+  >
+
+<div class="search-cart">
+
+  <button
+    class="cart-floating-btn"
+    onclick="showPage('keranjangPage')"
+  >
+
+    🛒
+
+ <span class="cart-badge" id="cartBadge">0</span>
+   
+
+  </button>
+
+</div>
+
+</div>
+
+    <div class="form-box">
+
+      <input
+        type="text"
+        id="namaProduk"
+        placeholder="Nama Produk"
+      >
+
+      <input
+        type="number"
+        id="hargaProduk"
+        placeholder="Harga Produk"
+      >
+
+      <input
+        type="number"
+        id="stokProduk"
+        placeholder="Stok Produk"
+      >
+
+      <button onclick="tambahProduk()">
+        Tambah Produk
+      </button>
+
+    </div>
+
+    <!-- LIST PRODUK -->
+    <div id="listProduk"></div>
+    </div>
+<!-- ========================= -->
+<!-- TAB KERANJANG -->
+<!-- ========================= -->
+
+<div id="keranjangPage"
+     class="tab-page"
+     style="display:none;">
+
+  <div class="cart-card">
+
+    <div class="cart-header">
+
+      <h1>🛒 Keranjang</h1>
+
+    </div>
+
+    <div id="listKeranjang" class="cart-list"></div>
+
+    <div class="cart-footer">
+
+      <div class="cart-total-box">
+
+        <span>Total Bayar</span>
+
+        <h2 id="totalKeranjang">
+          Rp 0
+        </h2>
+
+      </div>
+
+      <button
+        class="checkout-btn"
+        onclick="checkoutCart()"
+      >
+        ✅ Checkout Sekarang
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+  <!-- ========================= -->
+  <!-- TAB PENJUALAN -->
+  <!-- ========================= -->
+
+  <div id="penjualanPage"
+       class="tab-page"
+       style="display:none;">
+
+    <div class="form-box">
+
+      <input
+        type="text"
+        id="keterangan"
+        placeholder="Nama barang / catatan"
+      >
+
+      <input
+        type="number"
+        id="jumlah"
+        placeholder="Masukkan nominal"
+      >
+
+      <div class="select-box">
+  <select id="jenis">
+    <option value="belanja">Belanja</option>
+    <option value="penghasilan">Penghasilan Kotor</option>
+  </select>
+</div>
+
+      <button onclick="tambahData()">
+        Tambah Data
+      </button>
+
+    </div>
+
+    <div class="summary">
+
+      <div class="card">
+        <h3>Total Belanja</h3>
+        <p id="totalBelanja">Rp 0</p>
+      </div>
+
+      <div class="card">
+        <h3>Penghasilan Kotor</h3>
+        <p id="totalPenghasilan">Rp 0</p>
+      </div>
+
+      <div class="card">
+        <h3>Keuntungan Bersih</h3>
+        <p id="keuntungan">Rp 0</p>
+      </div>
+
+    </div>
+
+    <h2>Riwayat Transaksi</h2>
+
+<div class="filter-box">
+  <span>📅 Filter Tanggal</span>
+
+  <input
+    type="date"
+    id="cariTanggal"
+    onchange="tampilkanData()"
+  >
+</div>
+
+<div id="listData"></div>
+
+</div> <!-- TUTUP penjualanPage -->
+
+<!-- ========================= -->
+<!-- TAB PROFIL -->
+<!-- ========================= -->
+<div id="profilPage" class="tab-page">
+
+  <h2>👤 Profil</h2>
+
+  <!-- NAMA TOKO -->
+  <div class="profile-card">
+
+    <h3>🏪 Nama Toko</h3>
+
+    <input
+      type="text"
+      id="namaToko"
+      placeholder="Masukkan nama toko"
+    >
+
+    <button onclick="simpanNamaToko()">
+      Simpan Nama Toko
+    </button>
+
+  </div>
+
+
+  <!-- STATISTIK -->
+  <div class="profile-card">
+
+<div class="statistik-box">
+
+  <div class="stat-card">
+    <h3 id="statProduk">0</h3>
+    <p>Total Produk</p>
+  </div>
+
+  <div class="stat-card">
+    <h3 id="statTransaksi">0</h3>
+    <p>Total Transaksi</p>
+  </div>
+
+</div>
+</div>
+
+  <!-- TAMBAH USER -->
+  <div class="profile-card" id="menuUser">
+
+    <h3>👥 Tambah User</h3>
+
+    <input
+      type="text"
+      id="newUsername"
+      placeholder="Username"
+    >
+
+    <input
+      type="password"
+      id="newPassword"
+      placeholder="Password"
+    >
+
+    <select id="newRole">
+
+      <option value="kasir">
+        Kasir
+      </option>
+
+      <option value="admin">
+        Admin
+      </option>
+
+    </select>
+
+    <button onclick="tambahUser()">
+      Tambah User
+    </button>
+
+  </div>
+
+
+  <!-- DARK MODE -->
+  <button
+    class="dark-btn"
+    onclick="toggleDarkMode()"
+  >
+    🌙 Dark Mode
+  </button>
+
+
+  <!-- LOGOUT -->
+  <button
+    class="logout-btn"
+    onclick="logout()"
+  >
+    🚪 Logout
+  </button>
+
+</div>
+
+
+  <!-- ========================= -->
+  <!-- Page laporan -->
+  <!-- ========================= -->
+ 
+<div id="laporanPage" class="tab-page">
+
+  <h1>📊 Laporan</h1>
+  
+  <div class="action-buttons">
+
+      <button onclick="downloadPDF()">
+        📄 Download PDF
+      </button>
+
+      <button
+        onclick="resetData()"
+        style="background:red;color:white;"
+      >
+        🗑 Reset Data
+      </button>
+
+    </div>
+    
+  <div class="filter-box">
+  <span>📅 Filter Tanggal</span>
+  
+<input
+  type="date"
+  id="filterTanggal"
+  onchange="updateLaporan()"
+>
+
+</div>
+
+  
+<div class="card">
+  <h3>Total Transaksi</h3>
+  <p id="totalTransaksi">0</p>
+</div>
+
+  <div class="card">
+    <h3>Total Belanja</h3>
+    <p id="laporanBelanja">Rp 0</p>
+  </div>
+
+  <div class="card">
+    <h3>Total Penghasilan</h3>
+    <p id="laporanPenghasilan">Rp 0</p>
+  </div>
+
+  <div class="card">
+    <h3>Keuntungan Bersih</h3>
+    <p id="laporanKeuntungan">Rp 0</p>
+  </div>
+<div class="card">
+  <h3>📈 Grafik Penjualan</h3>
+
+  <canvas id="grafikJualan"></canvas>
+</div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- BOTTOM NAV -->
+<!-- ========================= -->
+<div id="backupInfo"></div>
+<div class="bottom-nav">
+
+  <button onclick="showPage('produkPage')">
+    📦
+    <span>Produk</span>
+  </button>
+
+  <button onclick="showPage('keranjangPage')">
+    🛒
+    <span>Keranjang</span>
+  </button>
+
+  <button onclick="showPage('penjualanPage')">
+    💰
+    <span>Penjualan</span>
+  </button>
+
+ <button id="menuLaporan" onclick="showPage('laporanPage')">
+    📊
+    <span>Laporan</span>
+  </button>
+
+  <button
+  id="menuProfil"
+  onclick="showPage('profilPage')"
+>
+  👤
+  <span>Profil</span>
+</button>
+
+</div>
+
+
+
+<!-- SCRIPT -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="script.js"></script>
+
+
+</body>
+</html>
