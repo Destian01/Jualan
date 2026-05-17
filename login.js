@@ -33,6 +33,11 @@ function login(){
     u.password === password
 
   );
+  
+  localStorage.setItem(
+  "loginUser",
+  username
+);
 
   if(!user){
 
