@@ -982,22 +982,41 @@ function printStruk() {
     `;
 
   });
+  
+const dibayar =
+  parseInt(
+    document.getElementById("inputBayar").value
+  ) || 0;
 
-  isi += `
-      <hr>
+const kembalian =
+  dibayar - total;
 
-      <h3>
-        Total:
-        Rp ${total.toLocaleString("id-ID")}
-      </h3>
+isi += `
+  <hr>
 
-      <p>
-        ${new Date().toLocaleString("id-ID")}
-      </p>
+  <h3>
+    Total:
+    Rp ${total.toLocaleString("id-ID")}
+  </h3>
 
-    </body>
-    </html>
-  `;
+  <p>
+    Dibayar:
+    Rp ${dibayar.toLocaleString("id-ID")}
+  </p>
+
+  <p>
+    Kembalian:
+    Rp ${kembalian.toLocaleString("id-ID")}
+  </p>
+
+  <p>
+    ${new Date().toLocaleString("id-ID")}
+  </p>
+
+</body>
+</html>
+`;
+  
 
   const printWindow = window.open("", "_blank");
 
@@ -1021,41 +1040,6 @@ function printStruk() {
 }
 
 
-function cetakStruk(){
-
-  let isi = `
-    <h2>STRUK BELANJA</h2>
-    <hr>
-  `;
-
-  let total = 0;
-
-  keranjang.forEach(item => {
-
-    total += item.harga * item.jumlah;
-
-    isi += `
-      <p>
-        ${item.nama}<br>
-        ${item.jumlah} x Rp ${item.harga.toLocaleString("id-ID")}
-      </p>
-    `;
-  });
-
-  isi += `
-    <hr>
-    <h3>Total: Rp ${total.toLocaleString("id-ID")}</h3>
-    <p>Terima kasih 🙏</p>
-  `;
-
-  const win = window.open("", "", "width=300,height=600");
-
-  win.document.write(isi);
-
-  win.print();
-
-  win.close();
-}
 function hapusProduk(index){
 
   if(currentUser.role !== "admin"){
@@ -1203,26 +1187,45 @@ function updateLaporan(){
 function showPage(pageId) {
 
   // sembunyikan semua halaman
-  const pages = document.querySelectorAll(".tab-page");
+  const pages =
+    document.querySelectorAll(".tab-page");
 
   pages.forEach(page => {
     page.style.display = "none";
   });
 
-  // tampilkan halaman yang dipilih
-  document.getElementById(pageId).style.display = "block";
+  // tampilkan halaman aktif
+  document.getElementById(pageId)
+    .style.display = "block";
 
-  // aktifkan tombol tab
-  const buttons = document.querySelectorAll(".bottom-nav button");
+  // hapus active semua tombol
+  const buttons =
+    document.querySelectorAll(".bottom-nav button");
 
   buttons.forEach(btn => {
     btn.classList.remove("active");
   });
-  
-  // LOAD AWAL
-tampilkanData();
-hitungTotal();
-updateLaporan();
+
+  // aktifkan tombol sesuai halaman
+  if(pageId === "produkPage"){
+    buttons[0].classList.add("active");
+  }
+
+  if(pageId === "keranjangPage"){
+    buttons[1].classList.add("active");
+  }
+
+  if(pageId === "penjualanPage"){
+    buttons[2].classList.add("active");
+  }
+
+  if(pageId === "laporanPage"){
+    buttons[3].classList.add("active");
+  }
+
+  if(pageId === "profilPage"){
+    buttons[4].classList.add("active");
+  }
 
 }
 
@@ -1319,7 +1322,7 @@ function buatGrafik(){
   });
 tampilkanData();
 updateLaporan();
-        }
+}
 
 function updateBadgeKeranjang(){
 
@@ -1481,6 +1484,22 @@ if(filterLaporan && !filterLaporan.value){
   
 
 document.getElementById("cariTanggal").value = hariIni;
+  
+  const namaUser =
+  localStorage.getItem("loginUser");
+
+const namaUserEl =
+  document.getElementById("namaUser");
+
+if(namaUserEl){
+
+  const userData =
+  JSON.parse(namaUser);
+
+namaUserEl.innerText =
+  userData.username;
+
+}
   
   tampilkanProduk();
 
