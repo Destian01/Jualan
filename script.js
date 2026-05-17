@@ -1194,11 +1194,11 @@ function showPage(pageId) {
     page.style.display = "none";
   });
 
-  // tampilkan halaman aktif
+  // tampilkan halaman
   document.getElementById(pageId)
     .style.display = "block";
 
-  // hapus active semua tombol
+  // reset active
   const buttons =
     document.querySelectorAll(".bottom-nav button");
 
@@ -1206,7 +1206,7 @@ function showPage(pageId) {
     btn.classList.remove("active");
   });
 
-  // aktifkan tombol sesuai halaman
+  // tombol aktif
   if(pageId === "produkPage"){
     buttons[0].classList.add("active");
   }
@@ -1216,11 +1216,21 @@ function showPage(pageId) {
   }
 
   if(pageId === "penjualanPage"){
+
     buttons[2].classList.add("active");
+
+    tampilkanData();
+
+    hitungTotal();
+
   }
 
   if(pageId === "laporanPage"){
+
     buttons[3].classList.add("active");
+
+    updateLaporan();
+
   }
 
   if(pageId === "profilPage"){
