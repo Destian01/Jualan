@@ -85,24 +85,29 @@ if(!loginUser){
 
     <!-- LIST PRODUK -->
     <div id="listProduk"></div>
-    </div>
+
 <!-- ========================= -->
 <!-- TAB KERANJANG -->
 <!-- ========================= -->
 
-<div id="keranjangPage"
-     class="tab-page"
-     style="display:none;">
+</div>
+
+<div
+  id="keranjangPage"
+  class="tab-page"
+  style="display:none;"
+>
 
   <div class="cart-card">
 
     <div class="cart-header">
-
       <h1>🛒 Keranjang</h1>
-
     </div>
 
-    <div id="listKeranjang" class="cart-list"></div>
+    <div
+      id="listKeranjang"
+      class="cart-list"
+    ></div>
 
     <div class="cart-footer">
 
@@ -116,6 +121,13 @@ if(!loginUser){
 
       </div>
 
+      <input
+        type="number"
+        id="inputBayar"
+        placeholder="Masukkan uang bayar"
+        class="input-bayar"
+      >
+
       <button
         class="checkout-btn"
         onclick="checkoutCart()"
@@ -126,6 +138,10 @@ if(!loginUser){
     </div>
 
   </div>
+
+</div>
+
+
   
 <div class="top-action" id="logoutKasirBox">
 
@@ -137,11 +153,16 @@ if(!loginUser){
   <!-- ========================= -->
   <!-- TAB PENJUALAN -->
   <!-- ========================= -->
-
+    
+    
   <div id="penjualanPage"
        class="tab-page"
        style="display:none;">
-
+    
+<div class="cart-penjualan">
+      <h1>💰 Penjualan</h1>
+    </div>
+    
     <div class="form-box">
 
       <input
@@ -209,8 +230,11 @@ if(!loginUser){
 <!-- ========================= -->
 <div id="profilPage" class="tab-page">
 
-  <h2>👤 Profil</h2>
+<div class="user-info">
 
+  <h2>👤 <span id="namaUser"></span></h2>
+
+</div>
   <!-- NAMA TOKO -->
   <div class="profile-card">
 
