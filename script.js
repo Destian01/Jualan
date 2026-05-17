@@ -542,7 +542,7 @@ function logout(){
 
   if(!setuju) return;
 
-  localStorage.removeItem("adminLogin");
+  localStorage.removeItem("loginUser");
 
   window.location.href = "login.html";
 }
@@ -1319,7 +1319,7 @@ function buatGrafik(){
   });
 tampilkanData();
 updateLaporan();
-}
+        }
 
 function updateBadgeKeranjang(){
 
@@ -1444,74 +1444,44 @@ function getValue(id){
 
 }
 
+document.addEventListener("DOMContentLoaded", () => {
 
+  const loginUser =
+    JSON.parse(
+      localStorage.getItem("loginUser")
+    );
 
+  const logoutBox =
+    document.getElementById("logoutKasirBox");
 
-window.onload = function(){
-  
-  const currentUser = JSON.parse(
-  localStorage.getItem("loginUser")
-);
+  if(!logoutBox) return;
 
-if(currentUser?.role === "kasir"){
+  if(loginUser && loginUser.role === "admin"){
 
-  const menuLaporan =
-    document.getElementById("menuLaporan");
+    logoutBox.style.display = "none";
 
-  const menuProfil =
-    document.getElementById("menuProfil");
+  }else{
 
-  if(menuLaporan){
-    menuLaporan.style.display = "none";
+    logoutBox.style.display = "flex";
+
   }
+  const hariIni =
+  new Date()
+  .toISOString()
+  .split('T')[0];
 
-  if(menuProfil){
-    menuProfil.style.display = "none";
-  }
+const filterLaporan =
+  document.getElementById("filterTanggal");
+
+if(filterLaporan && !filterLaporan.value){
+
+  filterLaporan.value = hariIni;
+
 }
   
-  const cariTanggal =
-  document.getElementById("cariTanggal");
 
-if(cariTanggal){
-
-  cariTanggal.value =
-    new Date().toISOString().split("T")[0];
-
-}
-
-  const filterTanggal =
-    document.getElementById("filterTanggal");
-
-  if(filterTanggal){
-
-    filterTanggal.value =
-      new Date().toISOString().split('T')[0];
-  }
-
-
-  if(currentUser){
-
-    if(currentUser.role === "kasir"){
-
-      const menuLaporan =
-        document.getElementById("menuLaporan");
-
-      const menuProfil =
-        document.getElementById("menuProfil");
-
-      if(menuLaporan){
-        menuLaporan.style.display = "none";
-      }
-
-      if(menuProfil){
-        menuProfil.style.display = "none";
-      }
-
-    }
-
-  }
-
+document.getElementById("cariTanggal").value = hariIni;
+  
   tampilkanProduk();
 
   renderKeranjang();
@@ -1527,6 +1497,5 @@ if(cariTanggal){
   loadNamaToko();
 
   updateStatistik();
-  
 
-};
+});
