@@ -1042,9 +1042,7 @@ isi += `
   <p>
     ${new Date().toLocaleString("id-ID")}
   </p>
-
-  struk += "\n\n\n";
-
+  
 </body>
 </html>
 `;
@@ -1068,7 +1066,8 @@ isi += `
     printWindow.print();
 
   }, 500);
-
+struk += "\n\n\n";
+  
 }
 
 function hapusProduk(index){
