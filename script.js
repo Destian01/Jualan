@@ -1043,6 +1043,8 @@ isi += `
     ${new Date().toLocaleString("id-ID")}
   </p>
 
+  struk += "\n\n\n";
+
 </body>
 </html>
 `;
