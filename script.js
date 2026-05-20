@@ -938,6 +938,12 @@ function checkoutCart() {
 
 function printStruk() {
 
+  const namaToko =
+    localStorage.getItem("namaToko") || "TOKO";
+
+  const namaKasir =
+    localStorage.getItem("loginUser") || "Kasir";
+
   let isi = `
     <html>
     <head>
@@ -947,21 +953,42 @@ function printStruk() {
         body{
           font-family: monospace;
           padding:20px;
+          font-size:14px;
         }
 
-        h2{
+        h2,h3,p{
+          margin:4px 0;
+        }
+
+        .center{
           text-align:center;
         }
 
         .item{
           margin-bottom:10px;
         }
+
+        hr{
+          border:none;
+          border-top:1px dashed #000;
+        }
       </style>
     </head>
 
     <body>
 
-      <h2>STRUK BELANJA</h2>
+      <div class="center">
+
+        <h2>${namaToko}</h2>
+
+        <p>Kasir : ${namaKasir}</p>
+
+        <p>
+          ${new Date().toLocaleString("id-ID")}
+        </p>
+
+      </div>
+
       <hr>
   `;
 
@@ -1038,7 +1065,6 @@ isi += `
   }, 500);
 
 }
-
 
 function hapusProduk(index){
 
