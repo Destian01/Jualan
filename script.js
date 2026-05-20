@@ -938,11 +938,14 @@ function checkoutCart() {
 
 function printStruk() {
 
-  const namaToko =
-    localStorage.getItem("namaToko") || "TOKO";
+  const userData =
+    JSON.parse(localStorage.getItem("loginUser"));
 
   const namaKasir =
-    localStorage.getItem("loginUser") || "Kasir";
+    userData.username;
+
+  const namaToko =
+    localStorage.getItem("namaToko") || "TOKO";
 
   let isi = `
     <html>
